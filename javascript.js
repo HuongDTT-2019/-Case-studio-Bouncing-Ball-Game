@@ -10,6 +10,7 @@ let barWidth = 100;
 let barX = (canvas.width - barWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
+let score=0;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -59,16 +60,22 @@ function createBar() {
     ctx.fill();
     ctx.closePath();
 }
-
+function createScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Score: "+score, 8, 20);
+}
 function playGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     createBall();
     createBar();
+    createScore();
     if (y + dy < radiusBall) {
         dy = -dy;
     } else if (y + dy > canvas.height - radiusBall - barHeight) {
         if (x > barX && x < barX + barWidth) {
             dy = -dy;
+            score=score+10;
         } else {
             alert("GAME OVER");
             document.location.reload();
@@ -86,6 +93,6 @@ function playGame() {
     y += dy;
 }
 
-setInterval(playGame, 10);
+setInterval(playGame, 5);
 
 
